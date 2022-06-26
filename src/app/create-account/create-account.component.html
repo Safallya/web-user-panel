@@ -1,0 +1,106 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row" style="display: flex; align-items: center; height: 100vh">
+      <div class="col-md-4 offset-md-4">
+        <div class="card">
+          <div class="card-header" style="text-align: center">
+            <h4 class="card-title">Web Panel</h4>
+            <p class="card-category">Create account to manage your products</p>
+            <img src="../../assets/img/login.jpg" style="max-width: 60%" />
+          </div>
+          <div class="card-body">
+            <ng-form [formGroup]="registerForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
+                    <input
+                      matInput
+                      placeholder="Enter your Name"
+                      type="text"
+                      formControlName="name"
+                    />
+                  </mat-form-field>
+                  <div>
+                    <ng-container *ngFor="let validation of validationMsg.name">
+                      <div
+                        *ngIf="
+                          registerForm.get('name').hasError(validation.type) &&
+                          registerForm.get('name').touched
+                        "
+                      >
+                        <small>* {{ validation.message }}</small>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Email ID</mat-label>
+                    <input
+                      matInput
+                      placeholder="Enter your Email ID"
+                      type="email"
+                      formControlName="email"
+                    />
+                  </mat-form-field>
+                  <div>
+                    <ng-container
+                      *ngFor="let validation of validationMsg.email"
+                    >
+                      <div
+                        *ngIf="
+                          registerForm.get('email').hasError(validation.type) &&
+                          registerForm.get('email').touched
+                        "
+                      >
+                        <small>* {{ validation.message }}</small>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input
+                      matInput
+                      placeholder="Enter your Password"
+                      type="password"
+                      formControlName="password"
+                    />
+                  </mat-form-field>
+                  <div>
+                    <ng-container
+                      *ngFor="let validation of validationMsg.password"
+                    >
+                      <div
+                        *ngIf="
+                          registerForm
+                            .get('password')
+                            .hasError(validation.type) &&
+                          registerForm.get('password').touched
+                        "
+                      >
+                        <small>* {{ validation.message }}</small>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </ng-form>
+            <div style="text-align: center; margin-top: 10px">
+              <button mat-raised-button color="primary" (click)="signUp()" [disabled]="running">
+                Sign Up
+              </button>
+            </div>
+            <mat-divider style="margin: 16px 0px;"></mat-divider>
+            <div style="text-align: center;">
+              <h5>Already have an Account?</h5>
+              <button mat-raised-button color="primary" style="width: 100%;" (click)="routeToLogin()">Back to Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

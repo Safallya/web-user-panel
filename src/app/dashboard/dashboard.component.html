@@ -1,0 +1,63 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+        <mat-form-field appearance="fill">
+          <mat-label>Search</mat-label>
+          <input matInput placeholder="Search Products" type="text" [(ngModel)]="search">
+          <mat-icon matPrefix style="margin-right: 5px;"><i class="material-icons">search</i></mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2" style="text-align: center; margin-top: 10px;">
+        <button mat-raised-button color="primary" (click)="addOrEditProduct()">Add Product</button>
+      </div>
+    </div>
+    <div *ngIf="loadingProducts; then thenCase else elseCase"></div>
+    <ng-template #thenCase>
+      <div style="display: flex; justify-content: center; align-items: center; margin-top: 50px">
+        <mat-spinner mode="indeterminate" diameter="30"></mat-spinner>
+      </div>
+    </ng-template>
+    <ng-template #elseCase>
+      <div class="row" *ngIf="filteredProducts.length > 0">
+        <div class="col-lg-6 col-md-6 col-sm-6" *ngFor="let product of filteredProducts">
+          <div class="card card-stats">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                  <h3 style="margin-top: 0px">{{product.name}}</h3>
+                  <p class="card-category">Offer</p>
+                  <h3 class="card-title">₹{{product.offerPrice}}</h3>
+                  <div>
+                    MRP: ₹{{product.price}}
+                  </div>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="display: flex; justify-content: center; align-items: center;">
+                  <img [src]="product.image" alt="" style="width: 80px; height: 80px">
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="row" style="padding: 20px;">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  <button mat-raised-button style="width: 100%;" (click)="deleteProduct(product)">Delete</button>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                  <button mat-raised-button color="primary" style="width: 100%;" (click)="addOrEditProduct('EDIT', product)">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="products.length === 0">
+        <div style="text-align: center; padding-top: 25px;">
+          <img src="../../assets/img/emptyProduct.png" alt="" style="max-width: 30%;">
+          <h3>Nothing in Products</h3>
+          <h5>Please add your Products.</h5>
+          <button mat-raised-button color="primary" (click)="addOrEditProduct()">Add a Product</button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

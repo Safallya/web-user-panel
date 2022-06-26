@@ -1,0 +1,88 @@
+<h2 mat-dialog-title>{{data.entryType === 'ADD' ? 'Add' : 'Edit'}} a Product</h2>
+<mat-dialog-content class="mat-typography">
+  <div>
+    <img [src]="imageDataURI ? imageDataURI : '../../../assets/img/productImg.jpg'" alt="" style="width: 80px; height: 80px; margin-top: 10px; margin-bottom: 10px;" />
+    <div class="padding-top: 15px; padding-bottom: 15px;">
+      <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
+      <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+    </div>
+  </div>
+  <ng-form [formGroup]="addProductForm">
+    <div class="row" style="margin-top: 15px;">
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <mat-label>Product Name</mat-label>
+          <input
+            matInput
+            placeholder="Enter Product Name"
+            type="text"
+            formControlName="name"
+          />
+        </mat-form-field>
+        <div>
+          <ng-container *ngFor="let validation of validationMsg.name">
+            <div
+              *ngIf="
+                addProductForm.get('name').hasError(validation.type) &&
+                addProductForm.get('name').touched
+              "
+            >
+              <small>* {{ validation.message }}</small>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+          <mat-label>Price</mat-label>
+          <input
+            matInput
+            placeholder="Enter Product Price"
+            type="number"
+            formControlName="price"
+          />
+        </mat-form-field>
+        <div>
+          <ng-container *ngFor="let validation of validationMsg.price">
+            <div
+              *ngIf="
+                addProductForm.get('price').hasError(validation.type) &&
+                addProductForm.get('price').touched
+              "
+            >
+              <small>* {{ validation.message }}</small>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="example-full-width">
+          <mat-label>Offer Price</mat-label>
+          <input
+            matInput
+            placeholder="Enter Offer Price"
+            type="number"
+            formControlName="offerPrice"
+          />
+        </mat-form-field>
+        <div>
+          <ng-container *ngFor="let validation of validationMsg.offerPrice">
+            <div
+              *ngIf="
+                addProductForm.get('offerPrice').hasError(validation.type) &&
+                addProductForm.get('offerPrice').touched
+              "
+            >
+              <small>* {{ validation.message }}</small>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-form>
+  <div style="text-align: center; margin-top: 10px" class="pull-right">
+    <button mat-raised-button color="primary" (click)="saveOrEdit()" [disabled]="saveOrEditRunning">
+      {{data.entryType === 'ADD'? "Add" : "Edit"}}
+    </button>
+  </div>
+</mat-dialog-content>
